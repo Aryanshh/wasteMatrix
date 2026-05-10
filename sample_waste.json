@@ -1,0 +1,12 @@
+{
+  "material_name": "Fly Ash",
+  "material_class": "organic",
+  "elemental_composition": [
+    {"element": "Calcium", "percentage": 12.5},
+    {"element": "Carbon", "percentage": 45.0}
+  ],
+  "hazard_classification": [],
+  "volume_tonnes_per_month": 450.0,
+  "location": {"lat": 55.6761, "lng": 12.5683},
+  "processing_tolerances": {}
+}
