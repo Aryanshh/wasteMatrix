@@ -37,12 +37,12 @@ const LoginView = ({ onAuth }) => {
             </p>
           </div>
 
-          <div className="mt-12 space-y-4">
+          <div className="mt-12 flex flex-col gap-8">
             {/* Proper Google Format - Ultra-Smooth Pill */}
             <button 
               onClick={() => handleSocialAction('google')}
               disabled={!!socialLoading}
-              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.1)] transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1) active:translate-y-1 bg-white shadow-[6px_6px_0px_var(--charcoal)] disabled:opacity-50 group"
+              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.1)] transition-all duration-700 ease-in-out active:translate-y-1 bg-white shadow-[8px_8px_0px_var(--charcoal)] disabled:opacity-50 group"
             >
               <div className="transition-transform duration-700 group-hover:scale-110 drop-shadow-sm">
                 <svg width="20" height="20" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ const LoginView = ({ onAuth }) => {
             <button 
               onClick={() => handleSocialAction('microsoft')}
               disabled={!!socialLoading}
-              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.1)] transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1) active:translate-y-1 bg-white shadow-[6px_6px_0px_var(--charcoal)] disabled:opacity-50 group"
+              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.1)] transition-all duration-700 ease-in-out active:translate-y-1 bg-white shadow-[8px_8px_0px_var(--charcoal)] disabled:opacity-50 group"
             >
               <div className="transition-transform duration-700 group-hover:scale-110 drop-shadow-sm">
                 <svg width="20" height="20" viewBox="0 0 23 23">
