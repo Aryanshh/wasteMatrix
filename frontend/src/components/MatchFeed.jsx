@@ -75,7 +75,7 @@ export default function MatchFeed() {
       {MOCK_MATCHES.map((match, idx) => (
         <div 
           key={idx} 
-          className="rounded-[3rem] shadow-2xl mb-12 hover:border-primary transition-all duration-500 overflow-hidden group border-4 border-charcoal/20"
+          className="rounded-[3rem] shadow-2xl mb-12 hover:border-primary transition-all duration-500 overflow-hidden group border-4 border-charcoal"
           style={{ 
             backgroundColor: 'rgba(255, 255, 255, 0.8)', 
             backdropFilter: 'blur(16px)',
@@ -105,8 +105,8 @@ export default function MatchFeed() {
 
             <div className="flex justify-between items-center pt-10 border-t border-slate-100">
               <div className="flex gap-4">
-                <span className="px-6 py-2 rounded-full bg-white border-4 border-charcoal text-[10px] font-black uppercase tracking-widest shadow-[4px_4px_0px_var(--charcoal)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">{match.type}</span>
-                <span className="px-6 py-2 rounded-full bg-primary text-black text-[10px] font-black uppercase tracking-widest border-4 border-charcoal shadow-[4px_4px_0px_var(--charcoal)]">Verified Synergy</span>
+                <span className="px-6 py-2 rounded-full bg-white text-[10px] font-black uppercase tracking-widest transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none" style={{ border: '6px solid #171e19', boxShadow: '6px 6px 0px #171e19' }}>{match.type}</span>
+                <span className="px-6 py-2 rounded-full bg-primary text-black text-[10px] font-black uppercase tracking-widest transition-transform" style={{ border: '6px solid #171e19', boxShadow: '6px 6px 0px #171e19' }}>Verified Synergy</span>
               </div>
               <button 
                 className={`px-8 py-3 rounded-full font-black uppercase text-[10px] tracking-[0.2em] transition-all duration-300 flex items-center gap-3 ${
@@ -129,7 +129,7 @@ export default function MatchFeed() {
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {match.explanation_tags.map((tag, i) => (
-                    <div key={i} className="flex gap-4 items-start p-5 bg-white rounded-3xl border border-charcoal-10 shadow-sm">
+                    <div key={i} className="flex gap-4 items-start p-5 bg-white rounded-3xl border-2 border-charcoal shadow-[4px_4px_0px_var(--charcoal)] transition-transform hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
                       {tag.includes("Warning") ? (
                         <AlertTriangle className="text-amber-500 shrink-0" size={20} />
                       ) : (
