@@ -71,14 +71,14 @@ const SiteLoader = ({ onComplete }) => {
 const Dashboard = ({ isAuthenticated }) => {
   const [activeTab, setActiveTab] = useState('matches');
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
 
   if (!isAuthenticated) return <Navigate to="/login" />;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-white">
-      <aside className="w-72 border-r border-charcoal-10 flex flex-col bg-slate-50">
+    <div className="flex h-screen overflow-hidden bg-white relative">
+      {/* Tier 1: Sidebar (z-100) */}
+      <aside className="w-72 border-r border-charcoal-10 flex flex-col bg-slate-50 relative z-[100]">
         <div className="p-8 border-b border-charcoal-10">
           <div className="logo-display cursor-pointer flex items-center gap-2" onClick={() => navigate('/')}>
             <Zap className="fill-primary text-primary" size={20} />
@@ -119,81 +119,47 @@ const Dashboard = ({ isAuthenticated }) => {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50/10">
-        <header className="flex justify-between items-center p-10 pb-6 bg-white/50 backdrop-blur-md border-b border-charcoal-10 z-[1000]">
+      {/* Tier 2: Main Content (z-200) */}
+      <main className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50/10 relative z-[200]">
+        {/* Tier 3: Header (z-1000) */}
+        <header className="flex justify-between items-center p-10 pb-6 bg-white/50 backdrop-blur-md border-b border-charcoal-10 z-[1000] relative">
           <h2 className="font-['Anton'] text-5xl uppercase">
             {activeTab === 'matches' ? 'Material Matches' : activeTab === 'network' ? 'Network Intelligence' : activeTab === 'analytics' ? 'Analytics Deep-Dive' : 'Proximity Routing'}
           </h2>
-          <div className="flex gap-4 items-center">
-            <div className="hidden lg:flex px-6 py-3 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] items-center gap-3 mr-4">
+          
+          <div className="flex gap-6 items-center">
+            <div className="hidden xl:flex px-6 py-3 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] items-center gap-3">
               <ShieldCheck className="text-primary" size={20} />
-              <span className="text-[10px] font-black uppercase tracking-widest">Verified Industrial Hub</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">Verified Hub</span>
             </div>
             
-            {/* Profile Hub - Total Premium Overhaul */}
-            <div className="relative group/profile">
-              <button 
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className={`flex items-center gap-5 pl-3 pr-6 py-2 border-[3px] border-charcoal rounded-full bg-white transition-all duration-500 hover:shadow-[6px_6px_0px_var(--charcoal)] ${isProfileOpen ? 'bg-slate-50 shadow-none translate-x-1 translate-y-1' : ''}`}
-              >
-                <div className="h-11 w-11 bg-primary border-[3px] border-charcoal rounded-full flex items-center justify-center overflow-hidden shadow-inner">
-                  <User size={24} className="text-charcoal fill-charcoal/10" />
+            {/* Command Capsule - High Fidelity Controls */}
+            <div className="flex items-center bg-white border-[3px] border-charcoal rounded-full p-1.5 shadow-[6px_6px_0px_var(--charcoal)] hover:shadow-[8px_8px_0px_var(--charcoal)] transition-all">
+              <div className="flex items-center px-4 py-2 gap-3 border-r-2 border-charcoal/10">
+                <div className="h-8 w-8 bg-primary border-2 border-charcoal rounded-full flex items-center justify-center">
+                  <User size={18} className="text-charcoal" />
                 </div>
-                <div className="text-left hidden xl:block">
-                  <div className="text-[10px] font-black uppercase tracking-[0.2em] text-charcoal leading-none mb-1">Industrial ID</div>
-                  <div className="text-[9px] font-bold uppercase tracking-widest text-charcoal/40">Node_8821.active</div>
+                <div className="hidden lg:block text-left">
+                  <div className="text-[8px] font-black uppercase tracking-widest text-charcoal leading-none">Node_8821</div>
                 </div>
-                <ChevronDown size={18} className={`text-charcoal/20 transition-transform duration-500 ${isProfileOpen ? 'rotate-180 text-charcoal' : ''}`} />
-              </button>
-
-              {/* Dropdown Menu - Industrial Satin Hub */}
-              {isProfileOpen && (
-                <div className="fixed top-32 right-10 w-80 bg-white border-[4px] border-charcoal shadow-[16px_16px_0px_var(--charcoal)] rounded-[2.5rem] overflow-hidden z-[9999] animate-slide-up p-2">
-                  <div className="bg-charcoal p-6 rounded-t-[2rem] mb-4">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="h-12 w-12 bg-primary border-2 border-white/20 rounded-xl flex items-center justify-center">
-                        <Zap size={24} className="text-charcoal fill-charcoal" />
-                      </div>
-                      <div>
-                        <div className="text-white font-['Anton'] text-xl uppercase tracking-wider">Command Center</div>
-                        <div className="text-primary text-[8px] font-black uppercase tracking-[0.5em]">Authentication Verified</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="px-4 pb-4 flex flex-col gap-3">
-                    {[
-                      { label: 'Industrial Profile', icon: UserCircle, desc: 'Manage Node Credentials' },
-                      { label: 'System Settings', icon: Settings, desc: 'Calibrate Neural Filters' },
-                    ].map((item, i) => (
-                      <button key={i} className="w-full text-left p-4 rounded-[1.5rem] border-2 border-transparent hover:border-charcoal hover:bg-slate-50 transition-all group flex items-center gap-4">
-                        <div className="h-12 w-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors border border-charcoal/5">
-                          <item.icon size={20} className="text-charcoal/30 group-hover:text-charcoal" />
-                        </div>
-                        <div>
-                          <div className="font-['Anton'] uppercase text-lg text-charcoal tracking-wide leading-none mb-1">{item.label}</div>
-                          <div className="text-[8px] font-black uppercase tracking-widest text-charcoal/30">{item.desc}</div>
-                        </div>
-                      </button>
-                    ))}
-                    
-                    <div className="h-[2px] bg-slate-100 mx-4 my-2"></div>
-                    
-                    <button 
-                      onClick={() => navigate('/login')}
-                      className="w-full text-left p-4 rounded-[1.5rem] border-2 border-transparent hover:border-red-500 hover:bg-red-50 transition-all group flex items-center gap-4"
-                    >
-                      <div className="h-12 w-12 bg-red-500/10 rounded-xl flex items-center justify-center group-hover:bg-red-500 transition-colors">
-                        <LogOut size={20} className="text-red-500 group-hover:text-white" />
-                      </div>
-                      <div>
-                        <div className="font-['Anton'] uppercase text-lg text-red-500 group-hover:text-red-600 tracking-wide leading-none mb-1">De-Authorize</div>
-                        <div className="text-[8px] font-black uppercase tracking-widest text-red-500/40 group-hover:text-red-500/60">Terminate Session</div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              )}
+              </div>
+              
+              <div className="flex items-center gap-1 px-2">
+                <button title="Profile" className="p-3 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all">
+                  <UserCircle size={20} />
+                </button>
+                <button title="Settings" className="p-3 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all">
+                  <Settings size={20} />
+                </button>
+                <div className="w-[2px] h-6 bg-charcoal/10 mx-1"></div>
+                <button 
+                  onClick={() => navigate('/login')}
+                  title="De-Authorize" 
+                  className="p-3 text-red-500/40 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
+                >
+                  <LogOut size={20} />
+                </button>
+              </div>
             </div>
           </div>
         </header>
@@ -208,6 +174,7 @@ const Dashboard = ({ isAuthenticated }) => {
         </div>
       </main>
 
+      {/* Tier 4: Modal (Global Front z-99999) */}
       {isUploadOpen && <UploadModal onClose={() => setIsUploadOpen(false)} />}
     </div>
   );
