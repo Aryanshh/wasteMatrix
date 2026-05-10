@@ -105,8 +105,8 @@ export default function MatchFeed() {
 
             <div className="flex justify-between items-center pt-10 border-t border-slate-100">
               <div className="flex gap-4">
-                <span className="px-6 py-2 rounded-full bg-white border-4 border-charcoal text-[10px] font-black uppercase tracking-widest shadow-[4px_4px_0px_rgba(23,30,25,0.1)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">{match.type}</span>
-                <span className="px-6 py-2 rounded-full bg-primary text-black text-[10px] font-black uppercase tracking-widest border-4 border-charcoal shadow-[4px_4px_0px_rgba(23,30,25,0.1)]">Verified Synergy</span>
+                <span className="px-6 py-2 rounded-full bg-white border-4 border-charcoal text-[10px] font-black uppercase tracking-widest shadow-[4px_4px_0px_var(--charcoal)] transition-transform hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">{match.type}</span>
+                <span className="px-6 py-2 rounded-full bg-primary text-black text-[10px] font-black uppercase tracking-widest border-4 border-charcoal shadow-[4px_4px_0px_var(--charcoal)]">Verified Synergy</span>
               </div>
               <button 
                 className={`px-8 py-3 rounded-full font-black uppercase text-[10px] tracking-[0.2em] transition-all duration-300 flex items-center gap-3 ${
