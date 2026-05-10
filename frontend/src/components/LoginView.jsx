@@ -35,13 +35,13 @@ const LoginView = ({ onAuth, setView }) => {
           </div>
 
           <div className="mt-12 space-y-4">
-            {/* Proper Google Format - Smooth Kinetic */}
+            {/* Proper Google Format - Ultra-Smooth Pill */}
             <button 
               onClick={() => handleSocialAction('google')}
               disabled={!!socialLoading}
-              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-[2rem] font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[4px_4px_0px_var(--charcoal)] transition-all duration-500 ease-in-out active:translate-y-1 bg-white shadow-[8px_8px_0px_var(--charcoal)] disabled:opacity-50 group"
+              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.1)] transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1) active:translate-y-1 bg-white shadow-[6px_6px_0px_var(--charcoal)] disabled:opacity-50 group"
             >
-              <div className="transition-transform duration-500 group-hover:scale-110">
+              <div className="transition-transform duration-700 group-hover:scale-110 drop-shadow-sm">
                 <svg width="20" height="20" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-1 .67-2.28 1.07-3.71 1.07-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -52,13 +52,13 @@ const LoginView = ({ onAuth, setView }) => {
               {socialLoading === 'google' ? 'Authorizing Google...' : 'Sign in with Google'}
             </button>
             
-            {/* Proper Microsoft Format - Smooth Kinetic */}
+            {/* Proper Microsoft Format - Ultra-Smooth Pill */}
             <button 
               onClick={() => handleSocialAction('microsoft')}
               disabled={!!socialLoading}
-              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-[2rem] font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[4px_4px_0px_var(--charcoal)] transition-all duration-500 ease-in-out active:translate-y-1 bg-white shadow-[8px_8px_0px_var(--charcoal)] disabled:opacity-50 group"
+              className="w-full h-16 flex items-center justify-center gap-4 border-[3px] border-charcoal rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-slate-50 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.1)] transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1) active:translate-y-1 bg-white shadow-[6px_6px_0px_var(--charcoal)] disabled:opacity-50 group"
             >
-              <div className="transition-transform duration-500 group-hover:scale-110">
+              <div className="transition-transform duration-700 group-hover:scale-110 drop-shadow-sm">
                 <svg width="20" height="20" viewBox="0 0 23 23">
                   <path fill="#f35325" d="M1 1h10v10H1z"/>
                   <path fill="#81bc06" d="M12 1h10v10H12z"/>
