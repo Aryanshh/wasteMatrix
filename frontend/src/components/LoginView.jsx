@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const LoginView = ({ onAuth, setView }) => {
+const LoginView = ({ onAuth }) => {
   const [mode, setMode] = useState('login');
   const [socialLoading, setSocialLoading] = useState(null);
+  const navigate = useNavigate();
   
   const handleSocialAction = (provider) => {
     setSocialLoading(provider);
     setTimeout(() => {
       onAuth();
+      navigate('/dashboard');
     }, 1500);
   };
 
@@ -22,7 +25,7 @@ const LoginView = ({ onAuth, setView }) => {
         {/* Left Side: Brand & Social Hub */}
         <div className="flex flex-col justify-between border-b md:border-b-0 md:border-r border-charcoal/10 pb-12 md:pb-0 md:pr-16">
           <div>
-            <div className="logo-display text-4xl mb-8 flex items-center gap-3 cursor-pointer" onClick={() => setView('landing')}>
+            <div className="logo-display text-4xl mb-8 flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
               <Zap className="fill-primary text-primary" />
               WASTEMATRIX<span className="logo-period">.</span>
             </div>
@@ -90,7 +93,13 @@ const LoginView = ({ onAuth, setView }) => {
             </div>
           </div>
 
-          <button onClick={onAuth} className="btn-brutal w-full py-6 text-sm tracking-[0.3em] border-[3px] shadow-[8px_8px_0px_var(--charcoal)] rounded-[2rem] hover:shadow-[4px_4px_0px_var(--charcoal)] transition-all duration-500 ease-in-out active:translate-y-1">
+          <button 
+            onClick={() => {
+              onAuth();
+              navigate('/dashboard');
+            }}
+            className="btn-brutal w-full py-6 text-sm tracking-[0.3em] border-[3px] shadow-[8px_8px_0px_var(--charcoal)] rounded-[2rem] hover:shadow-[4px_4px_0px_var(--charcoal)] transition-all duration-500 ease-in-out active:translate-y-1"
+          >
             {mode === 'login' ? 'Authorize Link' : 'Initialize Hub'}
           </button>
           
