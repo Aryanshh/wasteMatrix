@@ -321,3 +321,23 @@ body {
   .md\:border-l-4 { border-left-width: 4px; }
   .md\:border-t-0 { border-top-width: 0px; }
 }
+
+@keyframes fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(90vh) rotate(360deg); opacity: 0; }
+}
+
+.animate-fall {
+  animation: fall linear infinite;
+}
+
+@keyframes progressFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-progress-fill {
+  animation: progressFill 3.5s linear forwards;
+}

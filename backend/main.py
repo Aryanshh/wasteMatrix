@@ -1,10 +1,16 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List, Dict, Any
-from app.ai.schemas import MaterialProfile, FactoryProfile
+from sqlalchemy.orm import Session
+from typing import List
+
+import database
+from app import models, schemas
 from app.ai.engine import MatchingEngine
 
-app = FastAPI(title="WasteMatrix API", version="1.0.0")
+# Initialize Database Tables
+models.Base.metadata.create_all(bind=database.engine)
+
+app = FastAPI(title="WasteMatrix Neural Core", version="1.0.0")
 
 # Enable CORS for frontend
 app.add_middleware(
@@ -17,51 +23,56 @@ app.add_middleware(
 
 engine = MatchingEngine()
 
-# Mock database of factories
-MOCK_FACTORIES = [
-    FactoryProfile(
-        factory_name="EcoCement Plant A",
-        industry_type="Construction",
-        input_requirements={"classes": ["organic", "composite"], "elements": ["Calcium", "Carbon"]},
-        required_volume_tonnes=500.0,
-        location={"lat": 55.6761, "lng": 12.5683}, # Copenhagen area
-        pre_treatment_capability=True
-    ),
-    FactoryProfile(
-        factory_name="SteelCycle Foundry",
-        industry_type="Metallurgy",
-        input_requirements={"classes": ["metallic"], "elements": ["Iron", "Carbon", "Nickel"]},
-        required_volume_tonnes=1200.0,
-        location={"lat": 56.1629, "lng": 10.2039}, # Aarhus
-        pre_treatment_capability=False
-    ),
-    FactoryProfile(
-        factory_name="Bio-Polymer Works",
-        industry_type="Chemicals",
-        input_requirements={"classes": ["organic", "chemical"], "elements": ["Carbon", "Hydrogen", "Oxygen"]},
-        required_volume_tonnes=200.0,
-        location={"lat": 55.4038, "lng": 10.4024}, # Odense
-        pre_treatment_capability=True
-    )
-]
+# --- Auth Endpoints ---
 
-# In-memory store for demonstration
-waste_streams = {}
-
-@app.post("/waste-streams", response_model=Dict[str, str])
-async def create_waste_stream(profile: MaterialProfile):
-    stream_id = f"stream_{len(waste_streams) + 1}"
-    waste_streams[stream_id] = profile
-    return {"id": stream_id, "message": "Waste stream registered and indexed for matching."}
-
-@app.get("/matches/{stream_id}")
-async def get_matches(stream_id: str):
-    if stream_id not in waste_streams:
-        raise HTTPException(status_code=404, detail="Waste stream not found")
+@app.post("/auth/signup", response_model=schemas.User)
+def signup(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+    db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Industrial ID already registered")
     
-    waste = waste_streams[stream_id]
-    ranked_matches = engine.rank_matches(waste, MOCK_FACTORIES)
-    return ranked_matches
+    # In a production app, we would hash the password here
+    new_user = models.User(
+        company_name=user.company_name,
+        industrial_id=user.industrial_id,
+        email=user.email,
+        hashed_password=user.password # Placeholder for hashing
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@app.post("/auth/login")
+def login(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+    db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    if not db_user or db_user.hashed_password != user.password:
+        raise HTTPException(status_code=401, detail="Invalid Neural Signature")
+    return {"status": "authorized", "user": db_user.company_name}
+
+# --- Material Endpoints ---
+
+@app.post("/materials", response_model=schemas.Material)
+def create_material(material: schemas.MaterialCreate, db: Session = Depends(database.get_db)):
+    # Associate with first user for demo purposes
+    owner = db.query(models.User).first()
+    if not owner:
+        raise HTTPException(status_code=400, detail="No active Industrial Hub found. Please sign up.")
+    
+    new_material = models.Material(
+        **material.dict(),
+        owner_id=owner.id
+    )
+    db.add(new_material)
+    db.commit()
+    db.refresh(new_material)
+    return new_material
+
+@app.get("/materials", response_model=List[schemas.Material])
+def get_materials(db: Session = Depends(database.get_db)):
+    return db.query(models.Material).all()
+
+# --- Network Stats ---
 
 @app.get("/network/stats")
 async def get_network_stats():
@@ -74,7 +85,7 @@ async def get_network_stats():
 
 @app.get("/")
 async def root():
-    return {"status": "WasteMatrix AI Matching Engine Active"}
+    return {"status": "WasteMatrix Neural Core Active", "database": "SQLAlchemy/SQLite"}
 
 if __name__ == "__main__":
     import uvicorn
