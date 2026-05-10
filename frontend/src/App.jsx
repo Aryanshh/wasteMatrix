@@ -71,6 +71,7 @@ const SiteLoader = ({ onComplete }) => {
 const Dashboard = ({ isAuthenticated }) => {
   const [activeTab, setActiveTab] = useState('matches');
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
 
   if (!isAuthenticated) return <Navigate to="/login" />;
@@ -123,10 +124,55 @@ const Dashboard = ({ isAuthenticated }) => {
           <h2 className="font-['Anton'] text-5xl uppercase">
             {activeTab === 'matches' ? 'Material Matches' : activeTab === 'network' ? 'Network Intelligence' : activeTab === 'analytics' ? 'Analytics Deep-Dive' : 'Proximity Routing'}
           </h2>
-          <div className="flex gap-4">
-            <div className="px-6 py-3 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] flex items-center gap-3">
+          <div className="flex gap-4 items-center">
+            <div className="hidden lg:flex px-6 py-3 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] items-center gap-3 mr-4">
               <ShieldCheck className="text-primary" size={20} />
               <span className="text-[10px] font-black uppercase tracking-widest">Verified Industrial Hub</span>
+            </div>
+            
+            {/* Profile Hub */}
+            <div className="relative">
+              <button 
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className={`flex items-center gap-4 pl-4 pr-6 py-3 border-2 border-charcoal rounded-full bg-white transition-all hover:shadow-[4px_4px_0px_var(--charcoal)] ${isProfileOpen ? 'shadow-[4px_4px_0px_var(--charcoal)] translate-x-1 translate-y-1 shadow-none' : ''}`}
+              >
+                <div className="h-10 w-10 bg-primary border-2 border-charcoal rounded-full flex items-center justify-center overflow-hidden">
+                  <UserCircle size={32} className="text-charcoal" />
+                </div>
+                <div className="text-left hidden sm:block">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-charcoal leading-none mb-1">Industrial ID</div>
+                  <div className="text-[8px] font-bold uppercase tracking-widest text-charcoal/40">Node_8821</div>
+                </div>
+                <ChevronDown size={16} className={`text-charcoal/30 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isProfileOpen && (
+                <div className="absolute top-full right-0 mt-4 w-64 bg-white border-4 border-charcoal shadow-[12px_12px_0px_var(--charcoal)] rounded-[2rem] overflow-hidden z-50 animate-slide-up">
+                  <div className="p-4 border-b-2 border-slate-50 bg-slate-50/50">
+                    <span className="text-[9px] font-black uppercase tracking-[0.4em] text-charcoal/30">Command Menu</span>
+                  </div>
+                  <div className="p-4">
+                    {[
+                      { label: 'Industrial Profile', icon: UserCircle },
+                      { label: 'System Settings', icon: Settings },
+                    ].map((item, i) => (
+                      <button key={i} className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-primary transition-all group">
+                        <item.icon size={18} className="text-charcoal/30 group-hover:text-charcoal" />
+                        <span className="font-['Anton'] uppercase text-lg text-charcoal tracking-wider">{item.label}</span>
+                      </button>
+                    ))}
+                    <div className="h-1px bg-slate-100 my-4"></div>
+                    <button 
+                      onClick={() => navigate('/login')}
+                      className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl hover:bg-red-500 hover:text-white transition-all group"
+                    >
+                      <LogOut size={18} className="text-red-500 group-hover:text-white" />
+                      <span className="font-['Anton'] uppercase text-lg tracking-wider">De-Authorize</span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </header>
