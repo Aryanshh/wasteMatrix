@@ -3,7 +3,7 @@ import { Zap, Menu, X, ArrowRight, CheckCircle2, AlertTriangle, BarChart3, Netwo
 import MatchFeed from './components/MatchFeed'
 import NetworkView from './components/NetworkView'
 import AnalyticsView from './components/AnalyticsView'
-import MapView from './components/MapView'
+import LoginView from './components/LoginView'
 
 // --- Sub-Components (Defined Outside App for Stability) ---
 
@@ -56,97 +56,6 @@ const SiteLoader = ({ messages }) => {
   );
 };
 
-const LoginView = ({ onAuth, setView }) => {
-  const [mode, setMode] = useState('login');
-  const [socialLoading, setSocialLoading] = useState(null);
-  
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Decorative Grid */}
-      <div className="absolute inset-0 bg-white" style={{ backgroundImage: 'radial-gradient(var(--charcoal) 1px, transparent 0)', backgroundSize: '40px 40px', opacity: 0.05 }}></div>
-      
-      <div className="bg-white border-[6px] border-charcoal rounded-[3rem] p-12 w-full max-w-xl shadow-[24px_24px_0px_var(--charcoal)] relative z-10 animate-fade-in flex flex-col md:flex-row gap-12">
-        {/* Left Side: Brand & Social */}
-        <div className="flex-1 flex flex-col justify-between border-b md:border-b-0 md:border-r border-charcoal/10 pb-12 md:pb-0 md:pr-12">
-          <div>
-            <div className="logo-display text-4xl mb-8 flex items-center gap-3 cursor-pointer" onClick={() => setView('landing')}>
-              <Zap className="fill-primary text-primary" />
-              WASTEMATRIX<span className="logo-period">.</span>
-            </div>
-            <h2 className="font-['Anton'] text-5xl uppercase mb-6 leading-tight">
-              Industrial <br/>{mode === 'login' ? 'Nexus' : 'Registry'}
-            </h2>
-            <p className="text-xs font-bold text-charcoal/40 uppercase tracking-widest leading-loose">
-              Connect your industrial hub to the neural matching engine.
-            </p>
-          </div>
-
-          <div className="mt-12 flex flex-col gap-4">
-            <button 
-              onClick={() => {
-                setSocialLoading('google');
-                setTimeout(() => {
-                  setIsAuthenticated(true);
-                  setView('app');
-                }, 1500);
-              }}
-              disabled={!!socialLoading}
-              className="w-full flex items-center justify-center gap-4 py-4 border-2 border-charcoal rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all active:translate-y-1 bg-white disabled:opacity-50"
-            >
-              <img src="https://www.google.com/favicon.ico" className="w-5 h-5 object-contain" alt="Google" />
-              {socialLoading === 'google' ? 'Authorizing Google Hub...' : 'Sign in with Google'}
-            </button>
-            
-            <button 
-              onClick={() => {
-                setSocialLoading('microsoft');
-                setTimeout(() => {
-                  setIsAuthenticated(true);
-                  setView('app');
-                }, 1500);
-              }}
-              disabled={!!socialLoading}
-              className="w-full flex items-center justify-center gap-4 py-4 border-2 border-charcoal rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all active:translate-y-1 bg-white disabled:opacity-50"
-            >
-              <img src="https://www.microsoft.com/favicon.ico" className="w-5 h-5 object-contain" alt="Microsoft" />
-              {socialLoading === 'microsoft' ? 'Linking Microsoft AD...' : 'Sign in with Microsoft'}
-            </button>
-          </div>
-        </div>
-
-        {/* Right Side: Traditional Form */}
-        <div className="flex-[1.2] flex flex-col justify-center">
-          <div className="space-y-6 mb-10">
-            {mode === 'signup' && (
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40">Company Legal Name</label>
-                <input type="text" placeholder="Nordic Steel Works" className="input-brutal w-full text-sm" />
-              </div>
-            )}
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40">Industrial ID / Email</label>
-              <input type="text" placeholder="WM-2026-NORDIC" className="input-brutal w-full text-sm" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-charcoal/40">Neural Signature</label>
-              <input type="password" placeholder="••••••••" className="input-brutal w-full text-sm" />
-            </div>
-          </div>
-
-          <button onClick={onAuth} className="btn-brutal w-full py-6 text-sm tracking-[0.2em]">
-            {mode === 'login' ? 'Authorize Link' : 'Initialize Hub'}
-          </button>
-          
-          <div className="mt-8 text-center">
-            <button onClick={() => setMode(mode === 'login' ? 'signup' : 'login')} className="text-[10px] font-black uppercase tracking-widest text-charcoal/30 hover:text-primary transition-colors underline underline-offset-4">
-              {mode === 'login' ? "Don't have an account? Sign Up" : "Already have an account? Sign In"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const LandingHeader = ({ setView, enterPlatform }) => (
   <header className="header-fixed flex items-center justify-between px-10">
