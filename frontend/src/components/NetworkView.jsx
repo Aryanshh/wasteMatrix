@@ -1,5 +1,5 @@
 import React from 'react'
-import { Activity, Zap, TrendingUp, ShieldCheck, ArrowUpRight, Globe } from 'lucide-react'
+import { Activity, Zap, TrendingUp, ShieldCheck, ArrowUpRight, Globe, BarChart3, Layers, Database } from 'lucide-react'
 
 export default function NetworkView() {
   const activity = [
@@ -10,95 +10,136 @@ export default function NetworkView() {
   ]
 
   return (
-    <div className="space-y-12 animate-fade-in p-2">
-      {/* Network Hero Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div className="space-y-16 animate-fade-in pb-20">
+      {/* Network Hero Stats - Clean Grid Calibration */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { label: 'Active Material Flows', val: '1,240', icon: Zap, trend: '+12%' },
-          { label: 'CO2 Avoided (Tonnes)', val: '4,520', icon: Globe, trend: '+8.4%' },
-          { label: 'Total Cost Savings', val: '$1.2M', icon: TrendingUp, trend: '+15.2%' },
+          { label: 'Active Material Flows', val: '1,240', icon: Zap, trend: '+12%', color: 'primary' },
+          { label: 'CO2 Avoided (Tonnes)', val: '4,520', icon: Globe, trend: '+8.4%', color: 'primary' },
+          { label: 'Total Cost Savings', val: '$1.2M', icon: TrendingUp, trend: '+15.2%', color: 'primary' },
         ].map((stat, i) => (
-          <div key={i} className="bg-white border-4 border-charcoal rounded-[3rem] p-10 shadow-xl group hover:border-primary transition-all duration-500">
-            <div className="flex justify-between items-start mb-6">
-              <div className="h-16 w-16 bg-slate-50 border-2 border-charcoal-10 rounded-2xl flex items-center justify-center text-charcoal group-hover:text-primary transition-colors">
-                <stat.icon size={32} />
+          <div key={i} className="bg-white border-2 border-charcoal/10 rounded-[2.5rem] p-12 hover:border-charcoal transition-all duration-500 group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-[5rem] -mr-10 -mt-10 group-hover:bg-primary transition-colors duration-500"></div>
+            <div className="relative z-10">
+              <div className="flex justify-between items-center mb-8">
+                <stat.icon size={28} className="text-charcoal/20 group-hover:text-charcoal transition-colors" />
+                <span className="text-[11px] font-black text-primary tracking-widest">{stat.trend}</span>
               </div>
-              <span className="text-[10px] font-black text-primary px-3 py-1 bg-primary/10 rounded-full">{stat.trend}</span>
+              <div className="font-['Anton'] text-8xl text-charcoal mb-4 tracking-tighter leading-none">{stat.val}</div>
+              <div className="text-[10px] font-black uppercase tracking-[0.4em] text-charcoal/30 group-hover:text-charcoal transition-colors">{stat.label}</div>
             </div>
-            <div className="font-['Anton'] text-7xl text-charcoal mb-2 tracking-tight leading-none">{stat.val}</div>
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-charcoal/30">{stat.label}</div>
           </div>
         ))}
       </div>
 
-      {/* Network Activity & Monitoring */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 bg-white border-4 border-charcoal rounded-[4rem] p-12 shadow-2xl relative overflow-hidden">
-          <div className="flex justify-between items-center mb-12">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-primary/10 rounded-2xl">
-                <Activity className="text-primary" size={24} />
-              </div>
-              <h3 className="font-['Anton'] text-4xl uppercase">Live network activity</h3>
+      {/* Industrial Data Corridor */}
+      <div className="bg-white border-2 border-charcoal/10 rounded-[3rem] overflow-hidden shadow-2xl relative">
+        <div className="p-10 border-b-2 border-slate-50 flex justify-between items-center bg-slate-50/50">
+          <div className="flex items-center gap-6">
+            <div className="p-4 bg-charcoal rounded-2xl text-primary">
+              <Activity size={24} />
             </div>
-            <button className="text-[10px] font-black uppercase tracking-[0.25em] text-charcoal/30 hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1">View All Streams</button>
+            <h3 className="font-['Anton'] text-4xl uppercase tracking-tight">Live Network Activity</h3>
           </div>
+          <button className="text-[10px] font-black uppercase tracking-[0.3em] px-8 py-3 border-2 border-charcoal rounded-full hover:bg-charcoal hover:text-white transition-all">
+            View All Streams
+          </button>
+        </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b-2 border-slate-100 text-[11px] font-black uppercase tracking-[0.3em] text-charcoal/20">
-                  <th className="pb-8 px-4">Origin Hub</th>
-                  <th className="pb-8 px-4">Receiver Hub</th>
-                  <th className="pb-8 px-4">Material Flux</th>
-                  <th className="pb-8 px-4">Status</th>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50/30 text-[10px] font-black uppercase tracking-[0.4em] text-charcoal/20">
+                <th className="py-8 px-10 border-r border-slate-50">Origin Hub</th>
+                <th className="py-8 px-10 border-r border-slate-50">Receiver Hub</th>
+                <th className="py-8 px-10 border-r border-slate-50">Material Flux</th>
+                <th className="py-8 px-10">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y-2 divide-slate-50">
+              {activity.map((flow, i) => (
+                <tr key={i} className="group hover:bg-slate-50/80 transition-all">
+                  <td className="py-10 px-10">
+                    <div className="font-black text-xs text-charcoal uppercase tracking-widest mb-1">{flow.from}</div>
+                    <div className="text-[9px] font-bold text-charcoal/30 uppercase tracking-widest">Certified Node</div>
+                  </td>
+                  <td className="py-10 px-10 border-l border-slate-50">
+                    <div className="font-black text-xs text-charcoal uppercase tracking-widest mb-1">{flow.to}</div>
+                    <div className="text-[9px] font-bold text-charcoal/30 uppercase tracking-widest">Active Sink</div>
+                  </td>
+                  <td className="py-10 px-10 border-l border-slate-50">
+                    <div className="flex flex-col">
+                      <span className="text-xs font-black uppercase text-primary tracking-[0.2em] mb-1">{flow.material}</span>
+                      <span className="text-[10px] font-bold text-charcoal uppercase tracking-tighter">{flow.qty} / QUARTER</span>
+                    </div>
+                  </td>
+                  <td className="py-10 px-10 border-l border-slate-50">
+                    <span className={`px-6 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.3em] border-2 transition-all ${
+                      flow.status === 'Active' 
+                      ? 'bg-primary border-charcoal text-charcoal shadow-[4px_4px_0px_var(--charcoal)]' 
+                      : flow.status === 'Verified'
+                      ? 'bg-white border-charcoal text-charcoal shadow-[4px_4px_0px_var(--charcoal)]'
+                      : 'bg-slate-100 border-charcoal/10 text-charcoal/20'
+                    }`}>
+                      {flow.status}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {activity.map((flow, i) => (
-                  <tr key={i} className="group hover:bg-slate-50/50 transition-colors">
-                    <td className="py-8 px-4 font-black text-sm text-charcoal uppercase tracking-tight">{flow.from}</td>
-                    <td className="py-8 px-4 font-black text-sm text-charcoal uppercase tracking-tight">{flow.to}</td>
-                    <td className="py-8 px-4">
-                      <div className="text-xs font-black uppercase text-primary mb-1 tracking-widest">{flow.material}</div>
-                      <div className="text-[10px] font-bold text-charcoal/30 uppercase">{flow.qty} / Quarter</div>
-                    </td>
-                    <td className="py-8 px-4">
-                      <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] ${flow.status === 'Active' ? 'bg-primary text-black' : 'bg-slate-100 text-charcoal/40'}`}>
-                        {flow.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Sophisticated Certification Hubs */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="bg-charcoal p-16 rounded-[4rem] relative overflow-hidden group">
+          <div className="absolute -bottom-20 -right-20 opacity-5 group-hover:opacity-10 transition-all duration-700 rotate-12 group-hover:rotate-0">
+            <ShieldCheck size={400} />
+          </div>
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <div className="flex items-center gap-4 mb-10">
+                <div className="h-1px w-12 bg-primary"></div>
+                <span className="text-primary text-[10px] font-black uppercase tracking-[0.5em]">Network Certification</span>
+              </div>
+              <h2 className="font-['Anton'] text-7xl text-white uppercase leading-none mb-8">92% <br/><span className="text-primary">Efficiency</span></h2>
+              <p className="text-[12px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-sm leading-relaxed">
+                Operating at peak circularity. 4 new synergy opportunities detected in the Nordic Corridor.
+              </p>
+            </div>
+            <div className="mt-16 flex gap-6">
+              <button className="flex-1 py-6 bg-primary text-charcoal font-black uppercase text-[10px] tracking-[0.4em] shadow-[8px_8px_0px_white] hover:shadow-none transition-all hover:translate-x-1 hover:translate-y-1">
+                Audit Compliance
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Intelligence Sidebars */}
-        <div className="space-y-10">
-          <div className="bg-charcoal text-white rounded-[4rem] p-12 shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <ShieldCheck size={180} />
+        <div className="flex flex-col gap-12">
+          <div className="flex-1 bg-primary border-4 border-charcoal rounded-[4rem] p-16 relative overflow-hidden group cursor-pointer shadow-2xl">
+            <div className="absolute top-10 right-10">
+              <ArrowUpRight size={48} className="text-charcoal/20 group-hover:text-charcoal transition-all group-hover:translate-x-2 group-hover:-translate-y-2" />
             </div>
-            <h4 className="font-['Anton'] text-4xl uppercase mb-6 relative z-10 leading-tight">Network <br/>Certification</h4>
-            <p className="text-[11px] font-bold leading-relaxed opacity-40 mb-10 relative z-10 uppercase tracking-[0.15em]">
-              Operating at 92% circularity efficiency. 4 new synergy opportunities detected.
-            </p>
-            <button className="w-full py-5 bg-primary text-charcoal rounded-full font-black uppercase text-[10px] tracking-[0.25em] hover:scale-[1.02] active:scale-95 transition-all shadow-xl">
-              Audit Compliance
-            </button>
+            <div className="relative z-10">
+              <Globe size={64} className="mb-10 text-charcoal/30 group-hover:text-charcoal transition-colors" />
+              <h2 className="font-['Anton'] text-6xl uppercase text-charcoal leading-none">Global <br/>Expansion</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/60 mt-6 flex items-center gap-3">
+                <span className="w-3 h-3 bg-charcoal rounded-full animate-pulse"></span>
+                Connecting to Nordic Hub...
+              </p>
+            </div>
           </div>
           
-          <div className="bg-primary p-12 rounded-[4rem] shadow-xl group cursor-pointer hover:scale-[1.02] transition-all duration-500 border-4 border-charcoal">
-            <div className="flex justify-between items-start mb-8">
-              <div className="h-16 w-16 bg-white border-2 border-charcoal rounded-2xl flex items-center justify-center text-charcoal">
-                <Globe size={32} />
-              </div>
-              <ArrowUpRight className="text-charcoal group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" size={28} />
+          <div className="grid grid-cols-2 gap-8">
+            <div className="bg-white border-2 border-charcoal/10 p-10 rounded-[3rem] hover:border-charcoal transition-all group">
+              <BarChart3 className="text-charcoal/20 group-hover:text-primary mb-6" size={24} />
+              <div className="font-['Anton'] text-3xl uppercase">Data Vault</div>
             </div>
-            <h4 className="font-['Anton'] text-3xl uppercase text-charcoal">Global Hub expansion</h4>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-charcoal/40 mt-3">Connecting to Nordic Corridor...</p>
+            <div className="bg-white border-2 border-charcoal/10 p-10 rounded-[3rem] hover:border-charcoal transition-all group">
+              <Layers className="text-charcoal/20 group-hover:text-primary mb-6" size={24} />
+              <div className="font-['Anton'] text-3xl uppercase">Stream Map</div>
+            </div>
           </div>
         </div>
       </div>
