@@ -9,6 +9,7 @@ import AnalyticsView from './components/AnalyticsView'
 import MapView from './components/MapView'
 import LoginView from './components/LoginView'
 import LandingView from './components/LandingView'
+import UploadModal from './components/UploadModal'
 
 // --- Site Loader ---
 const SiteLoader = ({ onComplete }) => {
@@ -69,6 +70,7 @@ const SiteLoader = ({ onComplete }) => {
 // --- Dashboard Component ---
 const Dashboard = ({ isAuthenticated }) => {
   const [activeTab, setActiveTab] = useState('matches');
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
   const navigate = useNavigate();
 
   if (!isAuthenticated) return <Navigate to="/login" />;
@@ -107,7 +109,12 @@ const Dashboard = ({ isAuthenticated }) => {
           })}
         </nav>
         <div className="p-6 border-t border-charcoal-10">
-          <button className="btn-brutal w-full py-4 text-xs tracking-widest">Register Waste</button>
+          <button 
+            onClick={() => setIsUploadOpen(true)}
+            className="btn-brutal w-full py-4 text-xs tracking-widest"
+          >
+            Register Waste
+          </button>
         </div>
       </aside>
 
@@ -133,6 +140,8 @@ const Dashboard = ({ isAuthenticated }) => {
           </div>
         </div>
       </main>
+
+      {isUploadOpen && <UploadModal onClose={() => setIsUploadOpen(false)} />}
     </div>
   );
 };
@@ -165,7 +174,6 @@ function App() {
             element={
               <LoginView 
                 onAuth={() => setIsAuthenticated(true)} 
-                setView={(v) => console.log('Navigation handled by Router')} 
               />
             } 
           />
