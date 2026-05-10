@@ -148,7 +148,7 @@ const Dashboard = ({ isAuthenticated }) => {
 
               {/* Dropdown Menu - Industrial Satin Hub */}
               {isProfileOpen && (
-                <div className="absolute top-full right-0 mt-6 w-80 bg-white border-[4px] border-charcoal shadow-[16px_16px_0px_var(--charcoal)] rounded-[2.5rem] overflow-hidden z-[9999] animate-slide-up p-2">
+                <div className="fixed top-32 right-10 w-80 bg-white border-[4px] border-charcoal shadow-[16px_16px_0px_var(--charcoal)] rounded-[2.5rem] overflow-hidden z-[9999] animate-slide-up p-2">
                   <div className="bg-charcoal p-6 rounded-t-[2rem] mb-4">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="h-12 w-12 bg-primary border-2 border-white/20 rounded-xl flex items-center justify-center">
