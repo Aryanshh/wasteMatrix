@@ -127,37 +127,37 @@ const Dashboard = ({ isAuthenticated }) => {
             {activeTab === 'matches' ? 'Material Matches' : activeTab === 'network' ? 'Network Intelligence' : activeTab === 'analytics' ? 'Analytics Deep-Dive' : 'Proximity Routing'}
           </h2>
           
-          <div className="flex gap-6 items-center">
-            <div className="hidden xl:flex px-6 py-3 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] items-center gap-3">
-              <ShieldCheck className="text-primary" size={20} />
-              <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">Verified Hub</span>
+          <div className="flex gap-8 items-center">
+            <div className="hidden xl:flex px-8 py-4 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] items-center gap-4">
+              <ShieldCheck className="text-primary" size={24} />
+              <span className="text-[11px] font-black uppercase tracking-widest text-charcoal">Verified Hub</span>
             </div>
             
-            {/* Command Capsule - High Fidelity Controls */}
-            <div className="flex items-center bg-white border-[3px] border-charcoal rounded-full p-1.5 shadow-[6px_6px_0px_var(--charcoal)] hover:shadow-[8px_8px_0px_var(--charcoal)] transition-all">
-              <div className="flex items-center px-4 py-2 gap-3 border-r-2 border-charcoal/10">
-                <div className="h-8 w-8 bg-primary border-2 border-charcoal rounded-full flex items-center justify-center">
-                  <User size={18} className="text-charcoal" />
+            {/* Command Capsule - High Fidelity Controls (SCALED UP) */}
+            <div className="flex items-center bg-white border-[3px] border-charcoal rounded-full p-2 shadow-[8px_8px_0px_var(--charcoal)] hover:shadow-[10px_10px_0px_var(--charcoal)] transition-all">
+              <div className="flex items-center px-6 py-3 gap-4 border-r-2 border-charcoal/10">
+                <div className="h-10 w-10 bg-primary border-2 border-charcoal rounded-full flex items-center justify-center">
+                  <User size={22} className="text-charcoal" />
                 </div>
                 <div className="hidden lg:block text-left">
-                  <div className="text-[8px] font-black uppercase tracking-widest text-charcoal leading-none">Node_8821</div>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-charcoal leading-none">Node_8821</div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-1 px-2">
-                <button title="Profile" className="p-3 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all">
-                  <UserCircle size={20} />
+              <div className="flex items-center gap-2 px-3">
+                <button title="Profile" className="p-4 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all group">
+                  <UserCircle size={24} className="group-hover:scale-110 transition-transform" />
                 </button>
-                <button title="Settings" className="p-3 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all">
-                  <Settings size={20} />
+                <button title="Settings" className="p-4 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all group">
+                  <Settings size={24} className="group-hover:rotate-45 transition-transform duration-500" />
                 </button>
-                <div className="w-[2px] h-6 bg-charcoal/10 mx-1"></div>
+                <div className="w-[3px] h-8 bg-charcoal/10 mx-2"></div>
                 <button 
                   onClick={() => navigate('/login')}
                   title="De-Authorize" 
-                  className="p-3 text-red-500/40 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
+                  className="p-4 text-red-500/40 hover:text-red-500 hover:bg-red-50 rounded-full transition-all group"
                 >
-                  <LogOut size={20} />
+                  <LogOut size={24} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
