@@ -271,9 +271,14 @@ function App() {
         return;
       } 
       
-      // Only force landing if explicitly requested or if we are currently in an 'app' view without a valid hash
-      if (hash === 'landing' || (hash === '' && view === 'app')) {
+      // Only force landing if explicitly requested or if we are unauthenticated and on an empty hash
+      if (hash === 'landing' || (hash === '' && !isAuthenticated && view === 'app')) {
         setView('landing');
+      }
+      
+      // If authenticated and on empty hash, default to matches
+      if (isAuthenticated && hash === '' && view === 'app') {
+        window.location.hash = '#/matches';
       }
     };
     window.addEventListener('hashchange', syncRoute);
