@@ -5,7 +5,7 @@ export default function UploadModal({ onClose }) {
   // Logic Fix: Removed isOpen check as rendering is handled by App.jsx
   
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6 animate-fade-in">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 animate-fade-in">
       <div className="absolute inset-0 bg-white/40 backdrop-blur-md transition-all" onClick={onClose}></div>
       
       <div className="bg-white border-[4px] border-charcoal shadow-[16px_16px_0px_var(--charcoal)] w-full max-w-2xl relative z-10 overflow-hidden animate-slide-up">
