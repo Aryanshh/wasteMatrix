@@ -10,6 +10,8 @@ import MapView from './components/MapView'
 import LoginView from './components/LoginView'
 import LandingView from './components/LandingView'
 import UploadModal from './components/UploadModal'
+import ProfileView from './components/ProfileView'
+import SettingsView from './components/SettingsView'
 
 // --- Site Loader ---
 const SiteLoader = ({ onComplete }) => {
@@ -75,6 +77,18 @@ const Dashboard = ({ isAuthenticated }) => {
 
   if (!isAuthenticated) return <Navigate to="/login" />;
 
+  const getTitle = () => {
+    switch(activeTab) {
+      case 'matches': return 'Material Matches';
+      case 'network': return 'Network Intelligence';
+      case 'analytics': return 'Analytics Deep-Dive';
+      case 'map': return 'Proximity Routing';
+      case 'profile': return 'Node Identity Hub';
+      case 'settings': return 'System Configuration';
+      default: return 'WasteMatrix';
+    }
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-white relative">
       {/* Tier 1: Sidebar (z-100) */}
@@ -123,20 +137,20 @@ const Dashboard = ({ isAuthenticated }) => {
       <main className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50/10 relative z-[200]">
         {/* Tier 3: Header (z-1000) */}
         <header className="flex justify-between items-center p-10 pb-6 bg-white/50 backdrop-blur-md border-b border-charcoal-10 z-[1000] relative">
-          <h2 className="font-['Anton'] text-5xl uppercase">
-            {activeTab === 'matches' ? 'Material Matches' : activeTab === 'network' ? 'Network Intelligence' : activeTab === 'analytics' ? 'Analytics Deep-Dive' : 'Proximity Routing'}
+          <h2 className="font-['Anton'] text-5xl uppercase transition-all duration-500">
+            {getTitle()}
           </h2>
           
           <div className="flex gap-8 items-center">
             <div className="hidden xl:flex px-8 py-4 border-2 border-charcoal rounded-2xl bg-white shadow-[4px_4px_0px_var(--charcoal)] items-center gap-4">
               <ShieldCheck className="text-primary" size={24} />
-              <span className="text-[11px] font-black uppercase tracking-widest text-charcoal">Verified Hub</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">Verified Hub</span>
             </div>
             
-            {/* Command Capsule - High Fidelity Controls (SCALED UP) */}
+            {/* Command Capsule - High Fidelity Controls */}
             <div className="flex items-center bg-white border-[3px] border-charcoal rounded-full p-2 shadow-[8px_8px_0px_var(--charcoal)] hover:shadow-[10px_10px_0px_var(--charcoal)] transition-all">
-              <div className="flex items-center px-6 py-3 gap-4 border-r-2 border-charcoal/10">
-                <div className="h-10 w-10 bg-primary border-2 border-charcoal rounded-full flex items-center justify-center">
+              <div className="flex items-center px-6 py-3 gap-4 border-r-2 border-charcoal/10 cursor-pointer hover:bg-slate-50 transition-all rounded-l-full" onClick={() => setActiveTab('profile')}>
+                <div className="h-10 w-10 bg-primary border-2 border-charcoal rounded-full flex items-center justify-center overflow-hidden">
                   <User size={22} className="text-charcoal" />
                 </div>
                 <div className="hidden lg:block text-left">
@@ -145,10 +159,18 @@ const Dashboard = ({ isAuthenticated }) => {
               </div>
               
               <div className="flex items-center gap-2 px-3">
-                <button title="Profile" className="p-4 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all group">
+                <button 
+                  onClick={() => setActiveTab('profile')}
+                  title="Profile" 
+                  className={`p-4 rounded-full transition-all group ${activeTab === 'profile' ? 'bg-primary text-charcoal' : 'text-charcoal/30 hover:text-charcoal hover:bg-slate-50'}`}
+                >
                   <UserCircle size={24} className="group-hover:scale-110 transition-transform" />
                 </button>
-                <button title="Settings" className="p-4 text-charcoal/30 hover:text-charcoal hover:bg-slate-50 rounded-full transition-all group">
+                <button 
+                  onClick={() => setActiveTab('settings')}
+                  title="Settings" 
+                  className={`p-4 rounded-full transition-all group ${activeTab === 'settings' ? 'bg-primary text-charcoal' : 'text-charcoal/30 hover:text-charcoal hover:bg-slate-50'}`}
+                >
                   <Settings size={24} className="group-hover:rotate-45 transition-transform duration-500" />
                 </button>
                 <div className="w-[3px] h-8 bg-charcoal/10 mx-2"></div>
@@ -170,6 +192,8 @@ const Dashboard = ({ isAuthenticated }) => {
             {activeTab === 'network' && <NetworkView />}
             {activeTab === 'analytics' && <AnalyticsView />}
             {activeTab === 'map' && <MapView />}
+            {activeTab === 'profile' && <ProfileView />}
+            {activeTab === 'settings' && <SettingsView />}
           </div>
         </div>
       </main>
