@@ -18,12 +18,11 @@ export default function NetworkView() {
           { label: 'CO2 Avoided (Tonnes)', val: '4,520', icon: Globe, trend: '+8.4%', color: 'primary' },
           { label: 'Total Cost Savings', val: '$1.2M', icon: TrendingUp, trend: '+15.2%', color: 'primary' },
         ].map((stat, i) => (
-          <div key={i} className="bg-white border-2 border-charcoal/10 rounded-[2.5rem] p-12 hover:border-charcoal transition-all duration-500 group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-[5rem] -mr-10 -mt-10 group-hover:bg-primary transition-colors duration-500"></div>
+          <div key={i} className="bg-white border-2 border-charcoal/10 rounded-[2.5rem] p-12 hover:border-charcoal transition-all duration-500 group relative">
             <div className="relative z-10">
               <div className="flex justify-between items-center mb-8">
                 <stat.icon size={28} className="text-charcoal/20 group-hover:text-charcoal transition-colors" />
-                <span className="text-[11px] font-black text-primary tracking-widest">{stat.trend}</span>
+                <span className="text-[11px] font-black text-charcoal/40 tracking-widest">{stat.trend}</span>
               </div>
               <div className="font-['Anton'] text-8xl text-charcoal mb-4 tracking-tighter leading-none">{stat.val}</div>
               <div className="text-[10px] font-black uppercase tracking-[0.4em] text-charcoal/30 group-hover:text-charcoal transition-colors">{stat.label}</div>
@@ -93,10 +92,7 @@ export default function NetworkView() {
 
       {/* Sophisticated Certification Hubs */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div className="bg-charcoal p-16 rounded-[4rem] relative overflow-hidden group">
-          <div className="absolute -bottom-20 -right-20 opacity-5 group-hover:opacity-10 transition-all duration-700 rotate-12 group-hover:rotate-0">
-            <ShieldCheck size={400} />
-          </div>
+        <div className="bg-charcoal p-16 rounded-[4rem] relative overflow-hidden">
           <div className="relative z-10 flex flex-col h-full justify-between">
             <div>
               <div className="flex items-center gap-4 mb-10">
@@ -109,7 +105,7 @@ export default function NetworkView() {
               </p>
             </div>
             <div className="mt-16 flex gap-6">
-              <button className="flex-1 py-6 bg-primary text-charcoal font-black uppercase text-[10px] tracking-[0.4em] shadow-[8px_8px_0px_white] hover:shadow-none transition-all hover:translate-x-1 hover:translate-y-1">
+              <button className="flex-1 py-6 bg-primary text-charcoal font-black uppercase text-[10px] tracking-[0.4em] shadow-[8px_8px_0px_white] hover:shadow-none transition-all">
                 Audit Compliance
               </button>
             </div>
@@ -117,15 +113,15 @@ export default function NetworkView() {
         </div>
 
         <div className="flex flex-col gap-12">
-          <div className="flex-1 bg-primary border-4 border-charcoal rounded-[4rem] p-16 relative overflow-hidden group cursor-pointer shadow-2xl">
+          <div className="flex-1 bg-primary border-4 border-charcoal rounded-[4rem] p-16 relative group cursor-pointer">
             <div className="absolute top-10 right-10">
-              <ArrowUpRight size={48} className="text-charcoal/20 group-hover:text-charcoal transition-all group-hover:translate-x-2 group-hover:-translate-y-2" />
+              <ArrowUpRight size={48} className="text-charcoal/40 group-hover:text-charcoal transition-all" />
             </div>
             <div className="relative z-10">
-              <Globe size={64} className="mb-10 text-charcoal/30 group-hover:text-charcoal transition-colors" />
+              <Globe size={64} className="mb-10 text-charcoal/30" />
               <h2 className="font-['Anton'] text-6xl uppercase text-charcoal leading-none">Global <br/>Expansion</h2>
               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-charcoal/60 mt-6 flex items-center gap-3">
-                <span className="w-3 h-3 bg-charcoal rounded-full animate-pulse"></span>
+                <span className="w-3 h-3 bg-charcoal rounded-full"></span>
                 Connecting to Nordic Hub...
               </p>
             </div>

@@ -14,9 +14,9 @@ export default function MapView() {
     <div className="flex flex-col" style={{ height: '75vh', minHeight: '600px' }}>
       <div className="flex-1 bg-slate-50 border-4 border-charcoal rounded-[3rem] relative overflow-hidden group shadow-2xl">
         {/* Map Header Overlay */}
-        <div className="absolute top-10 left-10 z-10 bg-white p-6 border-2 border-charcoal shadow-[8px_8px_0px_var(--charcoal)] rounded-2xl max-w-xs animate-fade-in">
+        <div className="absolute top-10 left-10 z-10 bg-white p-6 border-2 border-charcoal shadow-[8px_8px_0px_var(--charcoal)] rounded-2xl max-w-xs">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-3 h-3 bg-primary rounded-full animate-pulse shadow-[0_0_10px_var(--primary)]"></div>
+            <div className="w-3 h-3 bg-primary rounded-full"></div>
             <h3 className="font-['Anton'] text-2xl uppercase tracking-tight">Live Network Map</h3>
           </div>
           <p className="text-[10px] font-black uppercase text-charcoal/40 tracking-widest leading-relaxed">
